@@ -1,10 +1,11 @@
 {
   "name": "angular-panel-snap",
   "version": "0.1.0",
-  "description": "AngularJS module that allows panels to be added to markup that will be snapped-to on scroll",
+  "description": "AngularJS module to provide snapping functionality to scrolling between panels",
   "main": "angular-panel-snap.min.js",
   "keywords": [
     "angular",
+    "angularjs",
     "panel",
     "snap",
     "scroll",

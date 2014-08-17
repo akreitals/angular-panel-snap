@@ -1,9 +1,9 @@
 #angular-panel-snap
-----
-
 An AngularJS module that provides scroll snapping functionality and menu's to sets of panels with a page.
 
-Only dependent on AngularJS (no jQuery or additional animation libraries required). Based on [jQuery.panelSnap](http://github.com/jquery-panelsnap).
+Only dependent on AngularJS (no jQuery or additional animation libraries required). Based on [jQuery.panelSnap](https://github.com/guidobouman/jquery-panelsnap).
+
+----
 
 ##Demo
 Check out the live [demo](http://akreitals.github.io/angular-panel-snap)
