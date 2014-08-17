@@ -24,8 +24,7 @@
     "gulpfile.js"
   ],
   "dependencies": {
-    "angular": "~1.2.20",
-    "angular-scroll": "~0.6.1"
+    "angular": "~1.2.20"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.20",
