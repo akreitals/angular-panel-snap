@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Angular-Panel-Snap example</title>
+
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="MainCtrl as main">
+	<ak-panel-group full-window="true" class="main-group">
+		<ak-panel class="introduction">
+			<div class="center">
+				<h1>Angular-Panel-Snap</h1>
+				<p>A set of AngularJS directives that will snap to panels (blocks) of content after scrolling. Panels can also be nested and combined with a navigation directive as shown below.</p>
+				<p>The following panels demonstrate some of the module's features.</p>
+				<p><a href="http://github.com/akreitals/angular-panel-snap">http://github.com/akreitals/angular-panel-snap</a></p>
+			</div>
+			<div class="bottom">
+				Scroll down to see more.
+			</div>
+		</ak-panel>
+
+		<ak-panel>
+			<h1>Navigation menu</h1>
+			<p>Simply add an <code>ak-panel-group-menu</code> directive to add a dynamic navigation menu.</p>
+			<ak-panel-group-menu for="test"></ak-panel-group-menu>
+			<ak-panel-group name="test" class="sub-group">
+				<ak-panel>
+					<h2>Panel 1</h2>
+					<p>You can disable the scroll, the menu will still be functional</p>
+					<button ng-click="enableSnap()">Enable Snap</button>
+					<button ng-click="disableSnap()">Disable Snap</button>
+					<button ng-click="toggleSnap()">Toggle Snap</button>
+				</ak-panel>
+				<ak-panel><h2>Panel 2</h2></ak-panel>
+				<ak-panel><h2>Panel 3</h2></ak-panel>
+				<ak-panel><h2>Panel 4</h2></ak-panel>
+			</ak-panel-group>
+		</ak-panel>
+
+		<ak-panel>
+			<h1>Keyboard navigation</h1>
+			<p>Use the left and right arrow keys to navigate this panel group (keys are customisable).</p>
+			<ak-panel-group keyboard="true" prev-key="37" next-key="39" class="sub-group keyboard">
+				<ak-panel><h2>Panel 1</h2></ak-panel>
+				<ak-panel><h2>Panel 2</h2></ak-panel>
+				<ak-panel><h2>Panel 3</h2></ak-panel>
+				<ak-panel><h2>Panel 4</h2></ak-panel>
+			</ak-panel-group>
+		</ak-panel>
+		
+		<ak-panel ng-controller="OnPanelCtrl as panel" on-enter="panel.enterFn()" on-leave="panel.leaveFn()">
+			<h1>Events</h1>
+			<p>Add functions to the <code>onEnter</code> or <code>onLeave</code> attributes or bind to <code>panelsnap</code> events to trigger custom actions and animations.
+			<pre class="event-feed">
+				{{panel.textLog}}
+			</pre>
+			<ak-panel-group name="eventPanelGroup" keyboard="true" prev-key="37" next-key="39" class="sub-group">
+				<ak-panel><h2>Panel 1</h2></ak-panel>
+				<ak-panel><h2>Panel 2</h2></ak-panel>
+				<ak-panel><h2>Panel 3</h2></ak-panel>
+				<ak-panel><h2>Panel 4</h2></ak-panel>
+			</ak-panel-group>
+		</ak-panel>
+	</ak-panel-group>
+
+	<!-- load scripts -->
+	<script src="../bower_components/angular/angular.js"></script>	
+	<script src="../angular-panel-snap.min.js"></script>
+	<script src="script.js"></script>
+</body>
