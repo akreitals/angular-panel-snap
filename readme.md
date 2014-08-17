@@ -1,17 +1,14 @@
 #angular-panel-snap
-[![Build Status](https://travis-ci.org/akreitals/angular-panel-snap.png)](https://travis-ci.org/akreitals/angular-panel-snap)
 ----
 
 An AngularJS module that provides scroll snapping functionality and menu's to sets of panels with a page.
 
 Only dependent on AngularJS (no jQuery or additional animation libraries required). Based on [jQuery.panelSnap](http://github.com/jquery-panelsnap).
 
-#Demo
-----
+##Demo
 Check out the live [demo](http://akreitals.github.io/angular-panel-snap)
 
-#Installation
-----
+##Installation
 Download [angular-panel-snap.js](https://raw.github.com/akreitals/master/angular-panel-snap.js)([minified version](https://raw.github.com/akreitals/master/angular-panel-snap.js)) and place it with your other scripts. Alternatively you can use Bower:
 
 	$ bower install angular-panel-snap
@@ -24,8 +21,8 @@ And remember to add angular-panel-snap as a dependency to your application modul
 
 	angular.module('myApplicationModule', ['akreitals.panel-snap']);
 
-#Usage
-##Basic usage
+##Usage
+###Basic usage
 A simple group of panels:
 ```html
 <ak-panel-group full-window="true">
@@ -59,7 +56,7 @@ html, body {
 }
 ```
 
-##Nested panel groups
+###Nested panel groups
 Panel groups can be nested:
 ```html
 <ak-panel-group full-window="true">
@@ -85,7 +82,7 @@ Panel groups can be nested:
 </ak-panel-group>
 ```
 
-##Panel group menu
+###Panel group menu
 A dynamic navigation menu can be easily added to any panel group provided it's `name` attribute is set:
 ```html
 <ak-panel-group-menu for="myPanelGroup"></ak-panel-group-menu>
@@ -107,10 +104,9 @@ A dynamic navigation menu can be easily added to any panel group provided it's `
 </ak-panel-group>
 ```
 
-#Directives
------
+##Directives
 All the options for the various directives are summarised in the tables below.
-## ak-panel-group
+### ak-panel-group
 Container for set of `ak-panel` directives that maintains the panels state and all interactions with the group.
 
 | Attr | Type | Details |
@@ -123,7 +119,7 @@ Container for set of `ak-panel` directives that maintains the panels state and a
 | prevKey (optional) | Number | keyCode of key to navigate to previous panel, defaults to 38 (up arrow) |
 | nextKey (optional) | Number | keyCode of key to navigate to next panel, defaults to 40 (down arrow) |
 
-## ak-panel
+### ak-panel
 Creates a panel inside an `ak-panel-group` directive. Must be a child of an `ak-panel-group` element.
 
 | Attr | Type | Details |
@@ -132,7 +128,7 @@ Creates a panel inside an `ak-panel-group` directive. Must be a child of an `ak-
 | onEnter (optional) | Function | function to be called when panel is snapped into |
 | onLeave (optional) | Function | function to be called when panel is snapped out of |
 
-## ak-panel-menu
+### ak-panel-menu
 Creates a menu for the referenced `ak-panel-group` container.
 
 | Attr | Type | Details |
