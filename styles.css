@@ -1,0 +1,160 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100);
+
+html, body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+body {
+	font-family: 'Lato';
+	font-weight: 100;
+	font-size: 100%;
+	color: #ffffff;
+	background: #f1c40f;
+}
+h1 {
+	text-transform: uppercase;
+	font-size: 4.5em;
+	margin: 0 0 20px 0;
+}
+a {
+	color: inherit;
+	text-decoration: none;
+	border-bottom: 1px solid #ffffff;
+	padding-bottom: 3px;
+}
+p {
+	font-size: 1.5em;	/* ~24px */
+}
+ul {
+	padding: 0;
+	margin: 0;
+}
+li {
+	list-style: none;
+}
+.ak-panel {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.main-group {
+	width: 100%;
+	height: 100%;
+}
+.main-group .ak-panel {
+	background: #1abc9c;
+    padding: 20px;
+}
+.main-group .ak-panel:nth-child(2n) {
+	background: #16a085;
+}
+
+.sub-group {
+	position: absolute;
+	top: 200px;
+	bottom: 50px;
+	right: 50px;
+	left: 400px;
+	overflow-y: scroll;
+}
+.sub-group .ak-panel {
+	background: #f1c40f;
+}
+.sub-group .ak-panel:nth-child(2n) {
+	background: #f39c12;
+}
+
+.sub-group.keyboard {
+	left: 150px;
+	right: 150px;
+}
+
+.ak-panel.introduction {
+	text-align: center;
+	display: table;
+	background: none;
+}
+.ak-panel.introduction:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: -200%;
+	left: -150%;
+	height: 500%;
+	width: 200%;
+	background: #f39c12;
+	z-index: -1;
+
+	-moz-transform-origin:  100% 50%;
+	-o-transform-origin:  100% 50%;
+	-webkit-transform-origin: 100% 50%;
+	transform-origin:  100% 50%;
+
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.ak-panel.introduction .center {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.ak-panel.introduction .center p {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 900px;
+}
+
+.ak-panel.introduction .bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding-bottom: 50px;
+
+	text-align: center;
+	font-size: 60%;
+}
+.ak-panel.introduction .bottom:after {
+	content: '';
+	display: block;
+	margin: 1em auto 0;
+	height: 20px;
+	width: 20px;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.ak-menu, .event-feed {
+	position: absolute;
+	top: 200px;
+	bottom: 50px;
+	right: auto;
+	left: 50px;
+	width: 300px;
+}
+.ak-menu a {
+	display: block;
+	padding: 25px;
+	background: #f1c40f;
+	margin: 0 0 25px 0;
+	border: none;
+}
+.ak-menu .active a,
+.ak-menu a:active,
+.ak-menu a:hover {
+	background: #f39c12;
+}
+.event-feed {
+	overflow-y: scroll;
+}
