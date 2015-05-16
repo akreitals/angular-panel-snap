@@ -60,7 +60,7 @@ describe('angular-panel-snap', function () {
 			element = angular.element(tpl);
 			element = $compile(element)(scope);
 			scope.$digest();
-			panels = element.find('.ak-panel');
+			panels = element.children();
 		}));
 
 		afterEach(function () {
