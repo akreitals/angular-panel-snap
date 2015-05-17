@@ -1,6 +1,6 @@
 {
   "name": "angular-panel-snap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AngularJS module that allows panels to be added to markup hat will be snapped-to on scroll",
   "keywords": [
     "angular",
