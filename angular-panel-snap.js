@@ -8,7 +8,6 @@ angular.module('akreitals.panel-snap', []);
 
 })();
 
-
 (function() {
 'use strict';
 
@@ -82,7 +81,6 @@ akPanelGroupMenu.$inject = ["$rootScope", "$log"];
 
 })();
 
-
 (function() {
 'use strict';
 
@@ -109,8 +107,6 @@ function akPanelGroup () {
 	return {
 		restrict: 'EA',
 		replace: true,
-		transclude: true,
-		template: '<div></div>',
 		controller: 'PanelGroupController',
 		scope: {
 			name: '@',
@@ -121,18 +117,15 @@ function akPanelGroup () {
 			prevKey: '=',
 			nextKey: '='
 		},
-		link: function (scope, element, attrs, ctrl, transcludeFn) {
-			transcludeFn(scope, function (clone) {
-				element.append(clone);
-			});
-
-			scope.init();	// Call init after child panels have registered with the controller
+		link: function (scope) {
+			// Call init after child panels have registered with the controller
+			scope.init();
 		}
 	};
 }
 
 /* @ngInject */
-function panelGroupController ($scope, $element, $attrs, $window, $timeout, $document, $rootScope, $log) {
+function panelGroupController ($scope, $element, $attrs, $window, $timeout, $document, $rootScope) {
 	var ctrl = this;
 
 	var resizeTimeout;
@@ -166,7 +159,7 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	/*
 	 * enable snapping
 	 */
-	$scope.enableSnap = function () {
+	ctrl.enableSnap = function () {
 		// TODO: should this snap to closest panel when enabled?
 		ctrl.enabled = true;
 	};
@@ -174,14 +167,14 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	/*
 	 * disable snapping
 	 */
-	$scope.disableSnap = function () {
+	ctrl.disableSnap = function () {
 		ctrl.enabled = false;
 	};
 
 	/*
 	 * toggle snapping
 	 */
-	$scope.toggleSnap = function () {
+	ctrl.toggleSnap = function () {
 		ctrl.enabled = !ctrl.enabled;
 	};
 
@@ -245,7 +238,6 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 		if (ctrl.isSnapping) {
 			if (e.which === ctrl.prevKey || e.which === ctrl.nextKey) {
 				e.preventDefault();
-				$log.log('keypress prevented');
 				return false;
 			}
 			return;
@@ -359,6 +351,11 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	}
 
 	function activatePanel(target) {
+		// if no panels, or panels have not yet loaded (within ng-repeat) return
+		if (!ctrl.panels || ctrl.panels.length < 1) { 
+			return;
+		}
+
 		angular.forEach(ctrl.panels, function (panel) {
 			panel.setActive(false);
 		});
@@ -370,11 +367,10 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 		$rootScope.$emit('panelsnap:activatePanel', { group: $scope.name, id: target });
 	}
 }
-panelGroupController.$inject = ["$scope", "$element", "$attrs", "$window", "$timeout", "$document", "$rootScope", "$log"];
+panelGroupController.$inject = ["$scope", "$element", "$attrs", "$window", "$timeout", "$document", "$rootScope"];
 
 
 })();
-
 
 (function() {
 'use strict';
@@ -404,13 +400,8 @@ function akPanel () {
 			onEnter: '&',
 			onLeave: '&'
 		},
-		template: '<div class="ak-panel" ng-class="{active: active}"></div>',
-		link: function (scope, element, attrs, ctrl, transcludeFn) {
-
-			// translude manually to avoid sibling scope between transclude scope and controller scope if applicable
-			transcludeFn(scope.$parent, function (clone) {
-				element.append(clone);
-			});
+		template: '<div class="ak-panel" ng-class="{active: active}" ng-transclude></div>',
+		link: function (scope, element, attrs, ctrl) {
 
 			// add to parent ak-panel-group
 			ctrl.addPanel(scope);
@@ -423,6 +414,11 @@ function akPanel () {
 				'overflow': 'hidden'
 			});
 
+			// attach enable/disable scroll methods to scope - need be accessed by $parent due to transclude scope
+			scope.enableSnap = ctrl.enableSnap;
+			scope.disableSnap = ctrl.disableSnap;
+			scope.toggleSnap = ctrl.toggleSnap;
+
 			// active flag and getter function, to set class .active on panel
 			scope.active = false;
 			scope.setActive = function (active) {
@@ -433,7 +429,6 @@ function akPanel () {
 }
 
 })();
-
 
 (function() {
 'use strict';
@@ -652,4 +647,3 @@ function cancelAnimation (polyfill, $timeout) {
 cancelAnimation.$inject = ["polyfill", "$timeout"];
 
 })();
-

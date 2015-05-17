@@ -21,8 +21,6 @@ function akPanelGroup () {
 	return {
 		restrict: 'EA',
 		replace: true,
-		transclude: true,
-		template: '<div></div>',
 		controller: 'PanelGroupController',
 		scope: {
 			name: '@',
@@ -33,18 +31,15 @@ function akPanelGroup () {
 			prevKey: '=',
 			nextKey: '='
 		},
-		link: function (scope, element, attrs, ctrl, transcludeFn) {
-			transcludeFn(scope, function (clone) {
-				element.append(clone);
-			});
-
-			scope.init();	// Call init after child panels have registered with the controller
+		link: function (scope) {
+			// Call init after child panels have registered with the controller
+			scope.init();
 		}
 	};
 }
 
 /* @ngInject */
-function panelGroupController ($scope, $element, $attrs, $window, $timeout, $document, $rootScope, $log) {
+function panelGroupController ($scope, $element, $attrs, $window, $timeout, $document, $rootScope) {
 	var ctrl = this;
 
 	var resizeTimeout;
@@ -78,7 +73,7 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	/*
 	 * enable snapping
 	 */
-	$scope.enableSnap = function () {
+	ctrl.enableSnap = function () {
 		// TODO: should this snap to closest panel when enabled?
 		ctrl.enabled = true;
 	};
@@ -86,14 +81,14 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	/*
 	 * disable snapping
 	 */
-	$scope.disableSnap = function () {
+	ctrl.disableSnap = function () {
 		ctrl.enabled = false;
 	};
 
 	/*
 	 * toggle snapping
 	 */
-	$scope.toggleSnap = function () {
+	ctrl.toggleSnap = function () {
 		ctrl.enabled = !ctrl.enabled;
 	};
 
@@ -157,7 +152,6 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 		if (ctrl.isSnapping) {
 			if (e.which === ctrl.prevKey || e.which === ctrl.nextKey) {
 				e.preventDefault();
-				$log.log('keypress prevented');
 				return false;
 			}
 			return;
@@ -271,6 +265,11 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	}
 
 	function activatePanel(target) {
+		// if no panels, or panels have not yet loaded (within ng-repeat) return
+		if (!ctrl.panels || ctrl.panels.length < 1) { 
+			return;
+		}
+
 		angular.forEach(ctrl.panels, function (panel) {
 			panel.setActive(false);
 		});

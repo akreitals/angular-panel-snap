@@ -1,6 +1,6 @@
 {
   "name": "angular-panel-snap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AngularJS module to provide snapping functionality to scrolling between panels",
   "main": "angular-panel-snap.min.js",
   "keywords": [
@@ -24,10 +24,9 @@
     "gulpfile.js"
   ],
   "dependencies": {
-    "angular": "~1.2.20"
+    "angular": "~1.3.15"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.20",
-    "jquery": "~2.1.1"
+    "angular-mocks": "~1.3.15"
   }
 }
