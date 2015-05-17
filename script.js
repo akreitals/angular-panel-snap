@@ -1,14 +1,6 @@
 angular.module('app', ['akreitals.panel-snap'])
 
-.controller('MainCtrl', function () {
-	var vm = this;
-
-	vm.testFn = function () {
-		alert('test triggered');
-	};
-})
-
-.controller('OnPanelCtrl', function ($rootScope) {
+.controller('MainCtrl', function ($rootScope) {
 	var vm = this;
 	vm.textLog = "\n";
 	
