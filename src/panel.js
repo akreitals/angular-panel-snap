@@ -23,13 +23,8 @@ function akPanel () {
 			onEnter: '&',
 			onLeave: '&'
 		},
-		template: '<div class="ak-panel" ng-class="{active: active}"></div>',
-		link: function (scope, element, attrs, ctrl, transcludeFn) {
-
-			// translude manually to avoid sibling scope between transclude scope and controller scope if applicable
-			transcludeFn(scope.$parent, function (clone) {
-				element.append(clone);
-			});
+		template: '<div class="ak-panel" ng-class="{active: active}" ng-transclude></div>',
+		link: function (scope, element, attrs, ctrl) {
 
 			// add to parent ak-panel-group
 			ctrl.addPanel(scope);
@@ -41,6 +36,11 @@ function akPanel () {
 				'position': 'relative',
 				'overflow': 'hidden'
 			});
+
+			// attach enable/disable scroll methods to scope - need be accessed by $parent due to transclude scope
+			scope.enableSnap = ctrl.enableSnap;
+			scope.disableSnap = ctrl.disableSnap;
+			scope.toggleSnap = ctrl.toggleSnap;
 
 			// active flag and getter function, to set class .active on panel
 			scope.active = false;
