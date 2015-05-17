@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 
 // load plugins
+var del = require('del');
+var join = require('path').join;
+var karma   = require('karma').server;
 var plugins = require('gulp-load-plugins')();
 
 // load tests config
@@ -28,9 +31,7 @@ var taskOptions = {
 		}
 	},
 	karma: {
-		configFile: karmaConfigPath,
-		dieOnError: false,
-		action: 'run'
+		configFile: karmaConfigPath
 	}
 }
 
@@ -43,13 +44,12 @@ var onError = function (err) {
 gulp.task('default', ['lint', 'test', 'clean', 'compile']);
 
 gulp.task('watch', ['default'], function () {
-	plugins.watch({glob: sources, emitOnGlob: false, name: 'Src'}, ['lint', 'test', 'compile']);
-	plugins.watch({glob: karmaConf.testFiles, emitOnGlob: false, name: 'Tests'}, ['test']);
+	gulp.watch(sources, ['lint', 'test', 'compile']);
+	gulp.watch(karmaConf.testFiles, ['test']);
 });
 
 gulp.task('clean', function () {
-	gulp.src(targets)
-		.pipe(plugins.clean());
+	del(targets);
 });
 
 gulp.task('lint', function () {
@@ -58,12 +58,11 @@ gulp.task('lint', function () {
 		.pipe(plugins.jshint.reporter('default'));
 });
 
-gulp.task('test', function () {
-	return gulp.src(karmaConf.testFiles)
-		.pipe(plugins.karma(taskOptions.karma))
-		.on('error', function (err) {
-			throw err
-		});
+gulp.task('test', function (cb) {
+	karma.start({
+        configFile: join(__dirname, taskOptions.karma.configFile),
+        singleRun: true
+    }, cb);
 });
 
 gulp.task('compile', function () {
