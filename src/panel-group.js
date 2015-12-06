@@ -5,7 +5,7 @@
  *
  * @attribute name (optional) String: name of the group, to be referenced in ak-panel-group-menu's 'for' attribute
  * @attribute speed (optional) Number: duration in milliseconds to snap to the desired panel, defaults to 400ms
- * @attribute threshold (optional) Number: amount of pixels required to scroll before snapping to the next panel, defults to 50px 
+ * @attribute threshold (optional) Number: amount of pixels required to scroll before snapping to the next panel, defults to 50px
  * @attribute fullWindow (optional) Boolean: true if the panels are to fill the full browser window
  * @attribute keyboard (optional) Boolean: true if key presses can be used to navigate panels
  * @attribute prevKey (optional) Number: keyCode of key to navigate to previous panel, defaults to 38 (up arrow)
@@ -90,6 +90,13 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 	 */
 	ctrl.toggleSnap = function () {
 		ctrl.enabled = !ctrl.enabled;
+	};
+
+	/*
+	 * toggle snapping
+	 */
+	ctrl.snapTo = function (id) {
+  	snapToPanel(id);
 	};
 
 	/*
@@ -182,7 +189,7 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 		$timeout.cancel(resizeTimeout);
 		resizeTimeout = $timeout(function () {
 			ctrl.scrollInterval = isNaN(ctrl.container[0].innerHeight) ? ctrl.container[0].clientHeight : ctrl.container[0].innerHeight;
-			
+
 			if (!ctrl.enabled) {
 				return;
 			}
@@ -266,7 +273,7 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 
 	function activatePanel(target) {
 		// if no panels, or panels have not yet loaded (within ng-repeat) return
-		if (!ctrl.panels || ctrl.panels.length < 1) { 
+		if (!ctrl.panels || ctrl.panels.length < 1) {
 			return;
 		}
 

@@ -41,6 +41,7 @@ function akPanel () {
 			scope.enableSnap = ctrl.enableSnap;
 			scope.disableSnap = ctrl.disableSnap;
 			scope.toggleSnap = ctrl.toggleSnap;
+			scope.snapTo = ctrl.snapTo;
 
 			// active flag and getter function, to set class .active on panel
 			scope.active = false;
