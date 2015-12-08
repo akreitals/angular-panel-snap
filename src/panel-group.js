@@ -128,7 +128,7 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
     bind();
     $timeout(function() {
       activatePanel(ctrl.currentPanel);
-    },0)
+    },0);
   };
 
   /*
@@ -155,7 +155,7 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
       ctrl.eventContainer.on('mousewheel.panelsnap touchmove.panelsnap DOMMouseScroll.panelsnap', function(e) {
         e.preventDefault();
         if(ctrl.isSnapping) return false;
-        if(e.type=='mousewheel'||e.type=='DOMMouseScroll') {
+        if(e.type==='mousewheel'||e.type==='DOMMouseScroll') {
           var delta = Math.max(-1, Math.min(1, (e.originalEvent.wheelDelta || -e.originalEvent.detail)));
           if(delta && delta >0) snapToPanel(ctrl.currentPanel - 1);
           else if(delta) snapToPanel(ctrl.currentPanel + 1);
