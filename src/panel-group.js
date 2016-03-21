@@ -152,13 +152,23 @@ function panelGroupController ($scope, $element, $attrs, $window, $timeout, $doc
 
     // bind scrolling events
     if(ctrl.enabled) {
+      // touch move direction support
+      var touchstart;
+      ctrl.eventContainer.on('touchstart.panelsnap', function(e) {
+        touchstart = e.originalEvent.touches[0].clientY;
+      });
       ctrl.eventContainer.on('mousewheel.panelsnap touchmove.panelsnap DOMMouseScroll.panelsnap', function(e) {
         e.preventDefault();
         if(ctrl.isSnapping) return false;
         if(e.type==='mousewheel'||e.type==='DOMMouseScroll') {
           var delta = Math.max(-1, Math.min(1, (e.originalEvent.wheelDelta || -e.originalEvent.detail)));
-          if(delta && delta >0) snapToPanel(ctrl.currentPanel - 1);
+          if(delta && delta > 0) snapToPanel(ctrl.currentPanel - 1);
           else if(delta) snapToPanel(ctrl.currentPanel + 1);
+        } else if(e.type==='touchmove') {
+          var touchend = e.originalEvent.changedTouches[0].clientY;
+          if(touchstart < touchend) snapToPanel(ctrl.currentPanel - 1);
+          else snapToPanel(ctrl.currentPanel + 1);
+          touchstart = touchend;
         }
       });
     }
