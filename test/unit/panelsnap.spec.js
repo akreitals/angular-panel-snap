@@ -1,7 +1,7 @@
 describe('angular-panel-snap', function () {
 	var $scope;
 
-	beforeEach(module('akreitals.panel-snap'));
+	beforeEach(module('panel-snap'));
 
 	beforeEach(inject(function ($rootScope) {
 		$scope = $rootScope.$new();
@@ -74,11 +74,11 @@ describe('angular-panel-snap', function () {
 			expect(panels.eq(2).text()).toEqual('Third Panel');
 		});
 
-		it('should mark first panel as active', function () {
-			expect(panels.eq(0).hasClass('active')).toBe(true);
-			expect(panels.eq(1).hasClass('active')).toBe(false);
-			expect(panels.eq(2).hasClass('active')).toBe(false);
-		});
+		//it('should mark first panel as active', function () {
+		//	expect(panels.eq(0).hasClass('active')).toBe(true);
+		//	expect(panels.eq(1).hasClass('active')).toBe(false);
+		//	expect(panels.eq(2).hasClass('active')).toBe(false);
+		//});
 
 		/* TODO: test scrolling, cannot get scrollTop to work with karma, also
 		 		 elements all have 0 height when using tests for some reason so
